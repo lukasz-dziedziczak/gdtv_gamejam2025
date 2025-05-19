@@ -1481,6 +1481,8 @@ MonoBehaviour:
   <Collider>k__BackingField: {fileID: 2093224848153279811}
   <Animator>k__BackingField: {fileID: 7372280290036688689}
   <Input>k__BackingField: {fileID: 7344610052462386620}
+  <Shooting>k__BackingField: {fileID: 3211137917026375821}
+  <Movement>k__BackingField: {fileID: 6913678565536962859}
   <Health>k__BackingField: {fileID: 1843953316406832116}
 --- !u!95 &7372280290036688689
 Animator:
@@ -1569,6 +1571,7 @@ MonoBehaviour:
   <Movement>k__BackingField: {x: 0, y: 0}
   <Look>k__BackingField: {x: 0, y: 0}
   <IsAttacking>k__BackingField: 0
+  <IsSprinting>k__BackingField: 0
 --- !u!114 &6913678565536962859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1582,8 +1585,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  runningSpeed: 0
+  runningSpeed: 6
   cam: {fileID: 0}
+  jump: 200
 --- !u!114 &3211137917026375821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1603,6 +1607,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1459319896484572825, guid: bcea5e20824f6324aa204c9bf81b4a00, type: 3}
   muzzleFlash: {fileID: 3055229411102167673}
   muzzleAudio: {fileID: 1125761467576967267}
+  weaponDamage: 10
+  <CurrentAmmo>k__BackingField: 0
+  <MaxAmmo>k__BackingField: 40
+  <StorageAmmo>k__BackingField: 400
 --- !u!114 &1843953316406832116
 MonoBehaviour:
   m_ObjectHideFlags: 0

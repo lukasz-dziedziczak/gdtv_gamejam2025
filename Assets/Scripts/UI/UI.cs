@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    public UI Instance;
+    public static UI Instance;
+
+    [SerializeField] UI_Ammo ammo;
+    [SerializeField] UI_HealthBar healthBar;
+    public static UI_Ammo Ammo => Instance.ammo;
+    public static UI_HealthBar HealthBar => Instance.healthBar;
 
     private void Awake()
     {

@@ -36162,6 +36162,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1030988166, guid: abc00000000002625000696532041642, type: 3}
   m_PrefabInstance: {fileID: 1625470988}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1625958986 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1030985364, guid: abc00000000015365787584801111105, type: 3}
+  m_PrefabInstance: {fileID: 1713033653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1630688784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38053,13 +38058,48 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1030985364, guid: abc00000000015365787584801111105, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1713033657}
   m_SourcePrefab: {fileID: 100100000, guid: abc00000000015365787584801111105, type: 3}
 --- !u!4 &1713033654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1030985365, guid: abc00000000015365787584801111105, type: 3}
   m_PrefabInstance: {fileID: 1713033653}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1713033657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625958986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: b5f6fd97dff436e4089d5a8a0d3bf0c2, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1001 &1713660494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41992,14 +42032,6 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2061243305}
-    - target: {fileID: 6913678565536962859, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
-      propertyPath: jump
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 6913678565536962859, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
-      propertyPath: runningSpeed
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

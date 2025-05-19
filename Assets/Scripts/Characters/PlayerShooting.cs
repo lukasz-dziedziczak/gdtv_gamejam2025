@@ -10,6 +10,9 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] A_RifleMuzzle muzzleAudio;
     [SerializeField] float weaponDamage = 10.0f;
+    [field: SerializeField] public int CurrentAmmo {  get; private set; }
+    [field: SerializeField] public int MaxAmmo { get; private set; }
+    [field: SerializeField] public int StorageAmmo { get; private set; }
 
     float cooldownTimer;
     Player player;
@@ -21,7 +24,8 @@ public class PlayerShooting : MonoBehaviour
 
     private void Start()
     {
-        
+        CurrentAmmo = MaxAmmo;
+        UI.Ammo.UpdateAmmoText();
     }
 
     private void Update()
@@ -33,7 +37,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void FireWeapon()
     {
-        if (cooldownTimer > 0) return;
+        if (cooldownTimer > 0 || CurrentAmmo == 0) return;
 
         if (player.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Fire")) return;
 
@@ -72,5 +76,23 @@ public class PlayerShooting : MonoBehaviour
         {
             print("miss");
         }
+
+        CurrentAmmo--;
+        UI.Ammo.UpdateAmmoText();
+    }
+
+    public void Reload()
+    {
+        int ammoToReload = Mathf.Min(MaxAmmo - CurrentAmmo, StorageAmmo);
+
+        CurrentAmmo += ammoToReload;
+        StorageAmmo -= ammoToReload;
+        UI.Ammo.UpdateAmmoText();
+    }
+
+    public void AddToAmmoStorage(int amount)
+    {
+        StorageAmmo += amount;
+        UI.Ammo.UpdateAmmoText();
     }
 }
