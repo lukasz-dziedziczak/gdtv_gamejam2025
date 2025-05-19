@@ -7,10 +7,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float runningSpeed;
     [SerializeField] Camera cam;
+    [SerializeField] float jump;
 
     private void Awake()
     {
         player = GetComponent<Player>();
+    }
+
+    private void OnEnable()
+    {
+        player.Input.Jump += OnJump;
+    }
+
+    private void OnDisable()
+    {
+        player.Input.Jump -= OnJump;
     }
 
     private void Update()
@@ -26,12 +37,20 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
 
             Vector3 position = transform.position;
-            position += transform.forward * player.Input.Movement.y * Time.deltaTime * speed;
-            position += transform.right * player.Input.Movement.x * Time.deltaTime * speed;
+            position += transform.forward * player.Input.Movement.y * Time.deltaTime * (sprinting ? runningSpeed : speed);
+            position += transform.right * player.Input.Movement.x * Time.deltaTime * (sprinting ? runningSpeed : speed);
             transform.position = position;
         }
 
-        player.Animator.SetFloat("Forward", player.Input.Movement.y, 0.1f, Time.deltaTime);
+        player.Animator.SetFloat("Forward", (sprinting ? player.Input.Movement.y * 2 : player.Input.Movement.y), 0.1f, Time.deltaTime);
         player.Animator.SetFloat("Right", player.Input.Movement.x, 0.1f, Time.deltaTime);
     }
+
+    private void OnJump()
+    {
+        player.Rigidbody.AddForce(transform.up * jump, ForceMode.Acceleration);
+        player.Animator.SetTrigger("Jump");
+    }
+
+    private bool sprinting => player.Input.IsSprinting && player.Input.Movement.x == 0 && player.Input.Movement.y > 0;
 }

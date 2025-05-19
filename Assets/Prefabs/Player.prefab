@@ -1434,6 +1434,7 @@ GameObject:
   - component: {fileID: 7344610052462386620}
   - component: {fileID: 6913678565536962859}
   - component: {fileID: 3211137917026375821}
+  - component: {fileID: 1843953316406832116}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1480,6 +1481,7 @@ MonoBehaviour:
   <Collider>k__BackingField: {fileID: 2093224848153279811}
   <Animator>k__BackingField: {fileID: 7372280290036688689}
   <Input>k__BackingField: {fileID: 7344610052462386620}
+  <Health>k__BackingField: {fileID: 1843953316406832116}
 --- !u!95 &7372280290036688689
 Animator:
   serializedVersion: 7
@@ -1580,6 +1582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  runningSpeed: 0
   cam: {fileID: 0}
 --- !u!114 &3211137917026375821
 MonoBehaviour:
@@ -1600,6 +1603,20 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1459319896484572825, guid: bcea5e20824f6324aa204c9bf81b4a00, type: 3}
   muzzleFlash: {fileID: 3055229411102167673}
   muzzleAudio: {fileID: 1125761467576967267}
+--- !u!114 &1843953316406832116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768074626597063646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8bd489dda37f6a46ad21a841640a413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Amount>k__BackingField: 100
+  <Max>k__BackingField: 100
 --- !u!1 &3192481047692138179
 GameObject:
   m_ObjectHideFlags: 0

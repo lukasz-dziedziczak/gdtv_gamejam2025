@@ -9,6 +9,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] Projectile projectilePrefab;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] A_RifleMuzzle muzzleAudio;
+    [SerializeField] float weaponDamage = 10.0f;
 
     float cooldownTimer;
     Player player;
@@ -49,8 +50,15 @@ public class PlayerShooting : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = targetRotation;
 
+            Projectile.ProjectilePayload payload = new Projectile.ProjectilePayload();
+            payload.Target = hit.point;
+            payload.Damage = weaponDamage;
+            payload.Speed = projectileSpeed;
+            payload.Health = hit.collider.GetComponent<Health>();
+            payload.DamageGiver = player.gameObject;
+
             Projectile projectile = Instantiate<Projectile>(projectilePrefab, muzzle.position, muzzle.rotation);
-            projectile.Initilize(hit.point, projectileSpeed);
+            projectile.Initilize(payload);
 
             player.Animator.SetTrigger("Fire");
 

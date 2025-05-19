@@ -9,7 +9,8 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
     [field: SerializeField] public Vector2 Movement { get; private set; }
     [field: SerializeField] public Vector2 Look { get; private set; }
     [field: SerializeField] public bool IsAttacking { get; private set; }
-    public event Action Attack;
+    [field: SerializeField] public bool IsSprinting { get; private set; }
+    public event Action Jump;
 
 
     private void Start()
@@ -35,6 +36,7 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (context.performed) Jump?.Invoke();
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -57,5 +59,7 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
 
     public void OnSprint(InputAction.CallbackContext context)
     {
+        if (context.performed) IsSprinting = true;
+        else if (context.canceled) IsSprinting = false;
     }
 }
