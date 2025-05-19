@@ -10,8 +10,10 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
     [field: SerializeField] public Vector2 Look { get; private set; }
     [field: SerializeField] public bool IsAttacking { get; private set; }
     [field: SerializeField] public bool IsSprinting { get; private set; }
+    public event Action Attack;
+    public event Action AttackComplete;
     public event Action Jump;
-
+    public event Action Reload;
 
     private void Start()
     {
@@ -22,8 +24,16 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed) IsAttacking = true;
-        else if (context.canceled) IsAttacking = false;
+        if (context.performed)
+        {
+            IsAttacking = true;
+            Attack?.Invoke();
+        }
+        else if (context.canceled)
+        {
+            IsAttacking = false;
+            AttackComplete?.Invoke();
+        }
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
@@ -51,15 +61,23 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
 
     public void OnNext(InputAction.CallbackContext context)
     {
+
     }
 
     public void OnPrevious(InputAction.CallbackContext context)
     {
+
     }
 
     public void OnSprint(InputAction.CallbackContext context)
     {
         if (context.performed) IsSprinting = true;
         else if (context.canceled) IsSprinting = false;
+    }
+
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        if (context.performed) Reload?.Invoke();
+        
     }
 }

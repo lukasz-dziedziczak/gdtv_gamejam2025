@@ -16,6 +16,9 @@ public class PlayerShooting : MonoBehaviour
 
     float cooldownTimer;
     Player player;
+    public bool IsReloading { get; private set; }
+
+    [SerializeField] bool autoFire;
 
     private void Awake()
     {
@@ -28,21 +31,49 @@ public class PlayerShooting : MonoBehaviour
         UI.Ammo.UpdateAmmoText();
     }
 
+    private void OnEnable()
+    {
+        player.Input.Attack += OnAttackStart;
+        player.Input.AttackComplete += OnAttackComplete;
+        player.Input.Reload += BeginReload;
+    }
+
+    private void OnDisable()
+    {
+        player.Input.Attack -= OnAttackStart;
+        player.Input.AttackComplete -= OnAttackComplete;
+        player.Input.Reload -= BeginReload;
+    }
+
     private void Update()
     {
         if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
 
-        if (player.Input.IsAttacking) FireWeapon();
+        if (!autoFire && player.Input.IsAttacking) FireWeapon();
+
+        if (IsReloading && !player.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Reload")) Reload();
     }
 
     private void FireWeapon()
     {
         if (cooldownTimer > 0 || CurrentAmmo == 0) return;
 
-        if (player.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Fire")) return;
+        if (!autoFire)
+        {
+            if (player.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Fire")) return;
+            cooldownTimer = weaponCooldown;
+        }
+        
+        Fire();
+    }
 
-
-        cooldownTimer = weaponCooldown;
+    public void Fire()
+    {
+        if (CurrentAmmo <= 0)
+        {
+            BeginReload();
+            return;
+        }
 
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 1000.0f))
@@ -88,11 +119,46 @@ public class PlayerShooting : MonoBehaviour
         CurrentAmmo += ammoToReload;
         StorageAmmo -= ammoToReload;
         UI.Ammo.UpdateAmmoText();
+
+        IsReloading = false;
+    }
+
+    public void BeginReload()
+    {
+        print("BeginReload()");
+        if (IsReloading) return;
+        IsReloading = true;
+        player.Animator.SetTrigger("Reload");
     }
 
     public void AddToAmmoStorage(int amount)
     {
         StorageAmmo += amount;
         UI.Ammo.UpdateAmmoText();
+    }
+
+    private void OnAttackStart()
+    {
+        if (IsReloading) return;
+        if (cooldownTimer > 0) return;
+        if (CurrentAmmo <= 0)
+        {
+            BeginReload();
+            return;
+        }
+
+        if (!autoFire)
+        {
+            if (player.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Fire")) return;
+            cooldownTimer = weaponCooldown;
+        }
+
+        player.Animator.SetBool("Fireing", true);
+        Fire();
+    }
+
+    private void OnAttackComplete()
+    {
+        player.Animator.SetBool("Fireing", false);
     }
 }
