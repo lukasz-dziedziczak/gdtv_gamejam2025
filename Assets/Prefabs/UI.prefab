@@ -757,6 +757,7 @@ GameObject:
   - component: {fileID: 3542000281199487711}
   - component: {fileID: 8607006359445533387}
   - component: {fileID: 8489765968437098444}
+  - component: {fileID: 2580703975543331983}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -811,13 +812,30 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 8c89ed5746a4faa48bb97701cc2f2e35, type: 3}
+  m_Texture: {fileID: 2800000, guid: 552478a654d2eb8478c30045279d5688, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
+--- !u!114 &2580703975543331983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339519372775929365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f263a1ac5ff11469a98926f487ab0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalTexture: {fileID: 2800000, guid: 552478a654d2eb8478c30045279d5688, type: 3}
+  normalScale: {x: 150, y: 150}
+  rapidFireTexture: {fileID: 2800000, guid: 6f6c2d827b5ed454b90a1529cefe9041, type: 3}
+  rapidFireScale: {x: 200, y: 200}
+  holdDelay: 1
 --- !u!1 &7455084102404358828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1096,7 @@ MonoBehaviour:
   healthBar: {fileID: 613661098608714103}
   coinAmount: {fileID: 7411996555669137067}
   sound: {fileID: 4488790212430353627}
+  crosshair: {fileID: 2580703975543331983}
 --- !u!82 &3625514154324711912
 AudioSource:
   m_ObjectHideFlags: 0

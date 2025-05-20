@@ -34,17 +34,15 @@ public class PlayerMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
 
-        if (player.Input.Movement.magnitude > 0)
+        if (player.Input.Movement.magnitude > 0 && !player.Shooting.IsReloading)
         {
-            
-
             Vector3 position = transform.position;
-            position += transform.forward * player.Input.Movement.y * Time.deltaTime * (sprinting ? runningSpeed : speed);
-            position += transform.right * player.Input.Movement.x * Time.deltaTime * (sprinting ? runningSpeed : speed);
+            position += transform.forward * player.Input.Movement.y * Time.deltaTime * (IsSprinting ? runningSpeed : speed);
+            position += transform.right * player.Input.Movement.x * Time.deltaTime * (IsSprinting ? runningSpeed : speed);
             transform.position = position;
         }
 
-        player.Animator.SetFloat("Forward", (sprinting ? player.Input.Movement.y * 2 : player.Input.Movement.y), 0.1f, Time.deltaTime);
+        player.Animator.SetFloat("Forward", (IsSprinting ? player.Input.Movement.y * 2 : player.Input.Movement.y), 0.1f, Time.deltaTime);
         player.Animator.SetFloat("Right", player.Input.Movement.x, 0.1f, Time.deltaTime);
     }
 
@@ -54,5 +52,10 @@ public class PlayerMovement : MonoBehaviour
         player.Animator.SetTrigger("Jump");
     }
 
-    private bool sprinting => player.Input.IsSprinting && player.Input.Movement.x == 0 && player.Input.Movement.y > 0;
+    public bool IsSprinting => 
+        !player.Shooting.IsReloading && 
+        !player.Input.IsAttacking && 
+        player.Input.IsSprinting && 
+        player.Input.Movement.x == 0 && 
+        player.Input.Movement.y > 0;
 }

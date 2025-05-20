@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    [SerializeField] LayerMask raycastLayers;
     [SerializeField] float weaponCooldown = 0.1f;
     [SerializeField] Camera cam;
     [SerializeField] float projectileSpeed = 100.0f;
@@ -10,13 +11,14 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] A_RifleMuzzle muzzleAudio;
     [SerializeField] float weaponDamage = 10.0f;
+    [SerializeField] float aimVariation = 1.0f;
     [field: SerializeField] public int CurrentAmmo {  get; private set; }
     [field: SerializeField] public int MaxAmmo { get; private set; }
     [field: SerializeField] public int StorageAmmo { get; private set; }
 
     float cooldownTimer;
     Player player;
-    public bool IsReloading { get; private set; }
+    [field: SerializeField] public bool IsReloading { get; private set; }
 
     [SerializeField] bool autoFire;
 
@@ -51,7 +53,7 @@ public class PlayerShooting : MonoBehaviour
 
         if (!autoFire && player.Input.IsAttacking) FireWeapon();
 
-        if (IsReloading && !player.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Reload")) Reload();
+        //if (IsReloading && !player.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Reload")) Reload();
     }
 
     private void FireWeapon()
@@ -69,6 +71,7 @@ public class PlayerShooting : MonoBehaviour
 
     public void Fire()
     {
+        if (IsReloading) return;
         if (CurrentAmmo <= 0)
         {
             BeginReload();
@@ -76,7 +79,7 @@ public class PlayerShooting : MonoBehaviour
         }
 
         RaycastHit hit;
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 1000.0f))
+        if (Physics.Raycast(raycastOrigin, cam.transform.forward, out hit, 1000.0f, raycastLayers))
         {
             // Rotate to match camera's horizontal forward
             Vector3 lookDirection = cam.transform.forward;
@@ -101,7 +104,7 @@ public class PlayerShooting : MonoBehaviour
 
             muzzleAudio.PlayFireSound();
 
-            print("hit " + hit.collider.name);
+            //print("hit " + hit.collider.name);
         }
         else
         {
@@ -110,6 +113,17 @@ public class PlayerShooting : MonoBehaviour
 
         CurrentAmmo--;
         UI.Ammo.UpdateAmmoText();
+    }
+
+    private Vector3 raycastOrigin
+    {
+        get
+        {
+            Vector3 origin = cam.transform.position;
+            origin += cam.transform.up * Random.Range(-aimVariation, aimVariation);
+            origin += cam.transform.right * Random.Range(-aimVariation, aimVariation);
+            return origin;
+        }
     }
 
     public void Reload()
@@ -121,14 +135,16 @@ public class PlayerShooting : MonoBehaviour
         UI.Ammo.UpdateAmmoText();
 
         IsReloading = false;
+        UI.Crosshair.ShowCrosshair();
     }
 
     public void BeginReload()
     {
-        print("BeginReload()");
-        if (IsReloading) return;
+        //print("BeginReload()");
+        if (IsReloading || StorageAmmo <= 0) return;
         IsReloading = true;
         player.Animator.SetTrigger("Reload");
+        UI.Crosshair.HideCrosshair();
     }
 
     public void AddToAmmoStorage(int amount)

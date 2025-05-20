@@ -10,10 +10,20 @@ public class EnemyAI : MonoBehaviour
     int waypointIndex = -1;
     [SerializeField] float waypointProximity = 0.1f;
     [SerializeField] float targetProximity = 1.2f;
+    [SerializeField] float wonderingProximity = 5.0f;
+
+    Vector3 spawnPosition;
+    Vector3 wonderingTarget;
 
     private void Awake()
     {
         enemy = transform.parent.GetComponent<Enemy>();
+    }
+
+    private void Start()
+    {
+        spawnPosition = enemy.transform.position;
+        wonderingTarget = spawnPosition;
     }
 
     private void Update()
@@ -21,6 +31,21 @@ public class EnemyAI : MonoBehaviour
         if (enemy == null || !enemy.IsAlive) return;
         if (Target != null) TargetUpdate();
         else if (waypoints.Length > 0) WaypointUpdate();
+        else WonderingUpdate();
+    }
+
+    private void WonderingUpdate()
+    {
+        float distance = Vector3.Distance(enemy.transform.position, wonderingTarget);
+        if (distance < targetProximity)
+        {
+            bool destinationSet = false;
+            while (!destinationSet)
+            {
+                destinationSet = enemy.NavMeshAgent.SetDestination(GenerateNewWonderingTarget());
+            }
+             
+        }
     }
 
     private Waypoint currentWaypoint => waypoints[waypointIndex];
@@ -88,5 +113,14 @@ public class EnemyAI : MonoBehaviour
 
         Target = player;
         enemy.ResetSpeed();
+    }
+
+    private Vector3 GenerateNewWonderingTarget()
+    {
+        Vector3 newPosition = spawnPosition;
+        newPosition.x = UnityEngine.Random.Range(newPosition.x - wonderingProximity, newPosition.x + wonderingProximity);
+        newPosition.z = UnityEngine.Random.Range(newPosition.z - wonderingProximity, newPosition.z + wonderingProximity);
+        wonderingTarget = newPosition;
+        return wonderingTarget;
     }
 }

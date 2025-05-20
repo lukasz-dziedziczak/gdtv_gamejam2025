@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public CoinHolder CoinHolder { get; private set; }
     [field: SerializeField] public A_Footstep Footstep { get; private set; }
+    [field: SerializeField] public A_RifleMuzzle RifleMuzzle { get; private set; }
 
     private void Awake()
     {
@@ -28,5 +29,20 @@ public class Player : MonoBehaviour
     public void PlayFootstep()
     {
         Footstep.PlayFootstepSound();
+    }
+
+    public void PlayRemoveClipSound()
+    {
+        RifleMuzzle.PlayRemoveClipSound();
+    }
+
+    public void PlayLoadClipSound()
+    {
+        RifleMuzzle.PlayLoadClipSound();
+    }
+
+    public void PlayReloadCompleteSound()
+    {
+        RifleMuzzle.PlayReloadCompleteSound();
     }
 }

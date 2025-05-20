@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7759952204010337729}
   - component: {fileID: 7364828312778382044}
   - component: {fileID: 1919110520132601841}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4844,7 +4844,7 @@ GameObject:
   - component: {fileID: 3052548475342762210}
   - component: {fileID: 2299093871479225694}
   - component: {fileID: 2809856020501449012}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: vfx_LootDrop_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9682,7 +9682,7 @@ GameObject:
   - component: {fileID: 7567305391701203188}
   - component: {fileID: 3086956652395890287}
   - component: {fileID: 403629159123663595}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PirateCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9790,7 +9790,7 @@ GameObject:
   - component: {fileID: 482134509302109359}
   - component: {fileID: 5150371182636464545}
   - component: {fileID: 5893141575432406807}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CoinPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9861,7 +9861,7 @@ GameObject:
   - component: {fileID: 4531578302149818838}
   - component: {fileID: 3750005975243787885}
   - component: {fileID: 5659482806570552046}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14694,7 +14694,7 @@ GameObject:
   - component: {fileID: 8698160678657829991}
   - component: {fileID: 7321610803517630311}
   - component: {fileID: 4553962738301118446}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shockwaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19527,7 +19527,7 @@ GameObject:
   - component: {fileID: 8523202290869915022}
   - component: {fileID: 7697851084145962340}
   - component: {fileID: 1866580813533263699}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Horizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
