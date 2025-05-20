@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerShooting Shooting { get; private set; }
     [field: SerializeField] public PlayerMovement Movement { get; private set; }
     [field: SerializeField] public Health Health { get; private set; }
+    [field: SerializeField] public CoinHolder CoinHolder { get; private set; }
+    [field: SerializeField] public A_Footstep Footstep { get; private set; }
 
     private void Awake()
     {
@@ -21,5 +23,10 @@ public class Player : MonoBehaviour
     private void Start()
     {
         UI.HealthBar.Initilize();
+    }
+
+    public void PlayFootstep()
+    {
+        Footstep.PlayFootstepSound();
     }
 }

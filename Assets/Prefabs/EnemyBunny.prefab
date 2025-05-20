@@ -1324,7 +1324,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6017751170603252207
 MonoBehaviour:
@@ -1511,8 +1511,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bd489dda37f6a46ad21a841640a413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Amount>k__BackingField: 20
-  <Max>k__BackingField: 20
+  <Amount>k__BackingField: 50
+  <Max>k__BackingField: 50
 --- !u!114 &3201409085887972095
 MonoBehaviour:
   m_ObjectHideFlags: 0

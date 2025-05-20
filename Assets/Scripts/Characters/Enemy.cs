@@ -68,14 +68,17 @@ public class Enemy : MonoBehaviour
 
     private void OnDeath()
     {
+        NavMeshAgent.isStopped = true;
+        NavMeshAgent.enabled = false;
+
         if (useRagdoll)
         {
             Rigidbody.useGravity = false;
+            Collider.enabled = false;
+
             Animator.StopPlayback();
             Animator.enabled = false;
-            Collider.enabled = false;
-            NavMeshAgent.isStopped = true;
-            NavMeshAgent.enabled = false;
+            
             Ragdoll.TurnOn();
         }
         else Animator.SetTrigger("Death");

@@ -26,15 +26,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        // Rotate to match camera's horizontal forward
+        Vector3 lookDirection = cam.transform.forward;
+        lookDirection.y = 0f;
+        lookDirection.Normalize();
+
+        Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+
         if (player.Input.Movement.magnitude > 0)
         {
-            // Rotate to match camera's horizontal forward
-            Vector3 lookDirection = cam.transform.forward;
-            lookDirection.y = 0f;
-            lookDirection.Normalize();
-
-            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            
 
             Vector3 position = transform.position;
             position += transform.forward * player.Input.Movement.y * Time.deltaTime * (sprinting ? runningSpeed : speed);

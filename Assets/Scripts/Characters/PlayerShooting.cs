@@ -135,6 +135,7 @@ public class PlayerShooting : MonoBehaviour
     {
         StorageAmmo += amount;
         UI.Ammo.UpdateAmmoText();
+        UI.Audio.PlayAmmoPickupSound();
     }
 
     private void OnAttackStart()

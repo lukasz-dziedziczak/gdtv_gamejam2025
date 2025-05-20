@@ -6,8 +6,13 @@ public class UI : MonoBehaviour
 
     [SerializeField] UI_Ammo ammo;
     [SerializeField] UI_HealthBar healthBar;
+    [SerializeField] UI_CoinAmount coinAmount;
+    [SerializeField] A_UI sound;
+
     public static UI_Ammo Ammo => Instance.ammo;
     public static UI_HealthBar HealthBar => Instance.healthBar;
+    public static UI_CoinAmount CoinAmount => Instance.coinAmount;
+    public static A_UI Audio => Instance.sound;
 
     private void Awake()
     {
