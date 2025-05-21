@@ -1774,7 +1774,7 @@ MonoBehaviour:
   aimVariation: 1
   <CurrentAmmo>k__BackingField: 0
   <MaxAmmo>k__BackingField: 40
-  <StorageAmmo>k__BackingField: 400
+  <StorageAmmo>k__BackingField: 80
   <IsReloading>k__BackingField: 0
   autoFire: 1
 --- !u!114 &1843953316406832116
@@ -1871,7 +1871,12 @@ MonoBehaviour:
   tookDamageClips:
   - {fileID: 8300000, guid: e5ade3c3abdc24795b38dfdab58984ad, type: 3}
   - {fileID: 8300000, guid: 11be70e6f6bd04d1b874dbde51136496, type: 3}
-  combatStartClips: []
+  combatStartClips:
+  - {fileID: 8300000, guid: ce447cb9bc4c447fda6ee5f5b0e8aec7, type: 3}
+  - {fileID: 8300000, guid: efd4df41f43f24387a33c47646360a8d, type: 3}
+  - {fileID: 8300000, guid: 435546e8fdf15402695346dcf1c8fb3f, type: 3}
+  - {fileID: 8300000, guid: 435546e8fdf15402695346dcf1c8fb3f, type: 3}
+  - {fileID: 8300000, guid: 110332e66b22e422083ca1b48aa831c3, type: 3}
 --- !u!82 &7035902163109521816
 AudioSource:
   m_ObjectHideFlags: 0

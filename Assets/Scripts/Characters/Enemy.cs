@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     public bool IsAlive => Health.Amount > 0;
 
     public static event Action Death;
+    [field: SerializeField] public bool IsStunned;
 
     private void OnEnable()
     {
@@ -93,6 +94,14 @@ public class Enemy : MonoBehaviour
     private void OnDamaged(GameObject damageGiver)
     {
         if (damageGiver.TryGetComponent<Player>(out Player player)) AI.SetTarget(player);
+        NavMeshAgent.isStopped = true;
         Animator.SetTrigger("Damaged");
+        IsStunned = true;
+    }
+
+    public void DamageFinish()
+    {
+        if (NavMeshAgent.isActiveAndEnabled) NavMeshAgent.isStopped = false;
+        IsStunned = false;
     }
 }

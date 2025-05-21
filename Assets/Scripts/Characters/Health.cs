@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
     {
         if (Amount <= 0) return;
 
-        Debug.Log(gameObject.name + " took " + AmountToTake + " damage");
+        //Debug.Log(gameObject.name + " took " + AmountToTake + " damage");
         Amount = Mathf.Clamp(Amount - AmountToTake, 0, Max);
 
         if (Amount == 0) OnDeath?.Invoke();

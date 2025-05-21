@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour
 
     Vector3 spawnPosition;
     Vector3 wonderingTarget;
+    Player unseenPlayer;
 
     private void Awake()
     {
@@ -28,7 +29,14 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if (enemy == null || !enemy.IsAlive) return;
+        if (enemy == null || !enemy.IsAlive || enemy.IsStunned) return;
+
+        if (unseenPlayer != null && HasLineOfSight(unseenPlayer.gameObject))
+        {
+            SetTarget(unseenPlayer);
+            unseenPlayer = null;
+        }
+
         if (Target != null && !Target.IsAlive)
         {
             Target = null;
@@ -60,7 +68,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (waypointIndex < 0 || waypointIndex >= waypoints.Length)
         {
-            waypointIndex = 0;
+            waypointIndex = closestWaypoint;
             enemy.NavMeshAgent.SetDestination(currentWaypoint.Position);
             return;
         }
@@ -102,15 +110,20 @@ public class EnemyAI : MonoBehaviour
     {
         if (Target == null && other.TryGetComponent<Player>(out Player player))
         {
-            SetTarget(player);
+            if (HasLineOfSight(player.gameObject))
+                SetTarget(player);
+
+            else
+                unseenPlayer = player;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<Player>(out Player player) && Target == player)
+        if (other.TryGetComponent<Player>(out Player player))
         {
-            SetTarget(null);
+            if (Target == player) SetTarget(null);
+            if (unseenPlayer == player) unseenPlayer = null;
         }
     }
 
@@ -130,5 +143,42 @@ public class EnemyAI : MonoBehaviour
         newPosition.z = UnityEngine.Random.Range(newPosition.z - wonderingProximity, newPosition.z + wonderingProximity);
         wonderingTarget = newPosition;
         return wonderingTarget;
+    }
+
+    public bool HasLineOfSight(GameObject gameObject)
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, (gameObject.transform.position - transform.position).normalized);
+        return Physics.Raycast(ray, out hit, 100.0f) && hit.collider.gameObject == gameObject;
+    }
+
+    public void SetWaypoints(Waypoint[] newWaypoints)
+    {
+        waypoints = newWaypoints;
+        waypointIndex = -1;
+    }
+
+    private int closestWaypoint
+    {
+        get
+        {
+            if (waypoints.Length > 0)
+            {
+                int closestIndex = -1;
+                float closestDistance = Mathf.Infinity;
+
+                for (int wIndex = 0; wIndex < waypoints.Length; wIndex++)
+                {
+                    float distance = Vector3.Distance(enemy.transform.position, waypoints[wIndex].Position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestIndex = wIndex;
+                    }
+                }
+                return closestIndex;
+            }
+            else return -1;
+        }
     }
 }

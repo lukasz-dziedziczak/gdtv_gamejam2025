@@ -1405,10 +1405,11 @@ MonoBehaviour:
   <Health>k__BackingField: {fileID: 1241886995089270873}
   <Ragdoll>k__BackingField: {fileID: 3201409085887972095}
   <Combat>k__BackingField: {fileID: 3389173020676310090}
-  useRagdoll: 0
+  useRagdoll: 1
   WalkingSpeed: 1
   RunningSpeed: 2.5
   deathtTest: 0
+  IsStunned: 0
 --- !u!95 &169410539950804008
 Animator:
   serializedVersion: 7
