@@ -14,6 +14,7 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
     public event Action AttackComplete;
     public event Action Jump;
     public event Action Reload;
+    public event Action Pause;
 
     private void Start()
     {
@@ -61,5 +62,10 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
     {
         if (context.performed) Reload?.Invoke();
         
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.performed) Pause?.Invoke();
     }
 }

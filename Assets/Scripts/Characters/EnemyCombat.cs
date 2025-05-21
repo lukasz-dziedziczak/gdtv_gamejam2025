@@ -20,7 +20,7 @@ public class EnemyCombat : MonoBehaviour
         if (timer > 0) timer -= Time.deltaTime;
     }
 
-    public bool CanAttack => !IsAttacking && timer <= 0;
+    public bool CanAttack => /*!IsAttacking &&*/ timer <= 0;
 
     public void BeginAttack()
     {

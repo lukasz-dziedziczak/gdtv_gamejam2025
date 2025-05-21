@@ -1,16 +1,25 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UI_PauseMenu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void OnResumePress()
     {
-        
+        UI.TogglePaused();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnResetPress()
     {
-        
+        SceneManager.LoadScene(1);
+    }
+
+    public void OnSettingsPress()
+    {
+
+    }
+
+    public void OnExitPress()
+    {
+        SceneManager.LoadScene(0);
     }
 }

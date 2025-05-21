@@ -75,6 +75,8 @@ public class Enemy : MonoBehaviour
         NavMeshAgent.isStopped = true;
         NavMeshAgent.enabled = false;
         Rigidbody.isKinematic = true;
+        Rigidbody.useGravity = false;
+        Collider.enabled = false;
 
         if (useRagdoll)
         {

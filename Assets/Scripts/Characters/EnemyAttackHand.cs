@@ -23,9 +23,9 @@ public class EnemyAttackHand : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hasHit) return;
+        if (!IsActive || hasHit || !enemy.IsAlive) return;
 
-        if (other.TryGetComponent<Player>(out Player player))
+        if (other.TryGetComponent<Player>(out Player player) && player.IsAlive)
         {
             player.Health.ApplyDamage(enemy.Combat.AttackDamage);
             hasHit = true;

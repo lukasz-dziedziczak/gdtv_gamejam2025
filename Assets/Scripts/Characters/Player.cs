@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public A_Footstep Footstep { get; private set; }
     [field: SerializeField] public A_RifleMuzzle RifleMuzzle { get; private set; }
     [field: SerializeField] public A_Voice Voice { get; private set; }
+    [field: SerializeField] public A_PlayerImpact Impact { get; private set; }
 
     private void Awake()
     {
@@ -31,12 +32,14 @@ public class Player : MonoBehaviour
     {
         Health.OnDeath += OnDeath;
         Health.OnDamaged += OnDamaged;
+        Input.Pause += OnPausePress;
     }
 
     private void OnDisable()
     {
         Health.OnDeath -= OnDeath;
         Health.OnDamaged -= OnDamaged;
+        Input.Pause -= OnPausePress;
     }
 
     public void PlayFootstep()
@@ -68,6 +71,11 @@ public class Player : MonoBehaviour
 
     private void OnDamaged(GameObject damageGiver)
     {
+        Impact.PlayImpactSound();
+    }
 
+    private void OnPausePress()
+    {
+        UI.TogglePaused();
     }
 }

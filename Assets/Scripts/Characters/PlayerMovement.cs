@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!player.IsAlive) return; 
+        if (!player.IsAlive || Time.timeScale == 0) return; 
 
         // Rotate to match camera's horizontal forward
         Vector3 lookDirection = cam.transform.forward;
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump()
     {
-        if (!player.IsAlive) return;
+        if (!player.IsAlive || Time.timeScale == 0) return;
 
         player.Rigidbody.AddForce(transform.up * jump, ForceMode.Acceleration);
         player.Animator.SetTrigger("Jump");
