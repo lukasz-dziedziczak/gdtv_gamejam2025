@@ -32,7 +32,8 @@ public class EnemyAI : MonoBehaviour
         if (Target != null && !Target.IsAlive)
         {
             Target = null;
-            enemy.NavMeshAgent.SetDestination(transform.position);
+            if (waypointIndex != -1) enemy.NavMeshAgent.SetDestination(currentWaypoint.Position);
+            else enemy.NavMeshAgent.SetDestination(wonderingTarget);
         }
         if (Target != null) TargetUpdate();
         else if (waypoints.Length > 0) WaypointUpdate();
