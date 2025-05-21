@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public CoinHolder CoinHolder { get; private set; }
     [field: SerializeField] public A_Footstep Footstep { get; private set; }
     [field: SerializeField] public A_RifleMuzzle RifleMuzzle { get; private set; }
+    [field: SerializeField] public A_Voice Voice { get; private set; }
 
     private void Awake()
     {
@@ -24,6 +25,18 @@ public class Player : MonoBehaviour
     private void Start()
     {
         UI.HealthBar.Initilize();
+    }
+
+    private void OnEnable()
+    {
+        Health.OnDeath += OnDeath;
+        Health.OnDamaged += OnDamaged;
+    }
+
+    private void OnDisable()
+    {
+        Health.OnDeath -= OnDeath;
+        Health.OnDamaged -= OnDamaged;
     }
 
     public void PlayFootstep()
@@ -44,5 +57,17 @@ public class Player : MonoBehaviour
     public void PlayReloadCompleteSound()
     {
         RifleMuzzle.PlayReloadCompleteSound();
+    }
+
+    public bool IsAlive => Health.Amount > 0;
+
+    private void OnDeath()
+    {
+        Animator.SetTrigger("Die");
+    }
+
+    private void OnDamaged(GameObject damageGiver)
+    {
+
     }
 }

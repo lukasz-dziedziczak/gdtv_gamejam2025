@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public EnemyAI AI { get; private set; }
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
+    [field: SerializeField] public EnemyCombat Combat { get; private set; }
 
     [SerializeField] bool useRagdoll;
 
@@ -22,6 +24,8 @@ public class Enemy : MonoBehaviour
 
     public bool HasTarget => AI.Target != null;
     public bool IsAlive => Health.Amount > 0;
+
+    public static event Action Death;
 
     private void OnEnable()
     {
@@ -70,18 +74,18 @@ public class Enemy : MonoBehaviour
     {
         NavMeshAgent.isStopped = true;
         NavMeshAgent.enabled = false;
+        Rigidbody.isKinematic = true;
 
         if (useRagdoll)
         {
-            Rigidbody.useGravity = false;
-            Collider.enabled = false;
-
             Animator.StopPlayback();
             Animator.enabled = false;
             
             Ragdoll.TurnOn();
         }
         else Animator.SetTrigger("Death");
+
+        Death?.Invoke();
     }
 
     private void OnDamaged(GameObject damageGiver)

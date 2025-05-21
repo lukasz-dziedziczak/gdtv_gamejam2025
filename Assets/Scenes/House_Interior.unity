@@ -48582,6 +48582,30 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2061243305}
+    - target: {fileID: 8708891238354787571, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
+      propertyPath: combatStartClips.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708891238354787571, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
+      propertyPath: 'combatStartClips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: ce447cb9bc4c447fda6ee5f5b0e8aec7, type: 3}
+    - target: {fileID: 8708891238354787571, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
+      propertyPath: 'combatStartClips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: efd4df41f43f24387a33c47646360a8d, type: 3}
+    - target: {fileID: 8708891238354787571, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
+      propertyPath: 'combatStartClips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 435546e8fdf15402695346dcf1c8fb3f, type: 3}
+    - target: {fileID: 8708891238354787571, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
+      propertyPath: 'combatStartClips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 435546e8fdf15402695346dcf1c8fb3f, type: 3}
+    - target: {fileID: 8708891238354787571, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
+      propertyPath: 'combatStartClips.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 110332e66b22e422083ca1b48aa831c3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

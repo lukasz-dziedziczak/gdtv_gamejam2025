@@ -4,6 +4,7 @@ using UnityEngine;
 public class Ragdoll : MonoBehaviour
 {
     [SerializeField] Collider[] colliders;
+    [SerializeField] Rigidbody[] rigidbodies;
     [SerializeField] Transform root;
 
     private void Start()
@@ -16,8 +17,13 @@ public class Ragdoll : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             collider.enabled = false;
-            if (collider.attachedRigidbody != null) 
-                collider.attachedRigidbody.isKinematic = true;
+            /*if (collider.attachedRigidbody != null) 
+                collider.attachedRigidbody.isKinematic = true;*/
+        }
+
+        foreach (Rigidbody rigidbody in rigidbodies)
+        {
+            rigidbody.useGravity = false;
         }
     }
 
@@ -26,10 +32,16 @@ public class Ragdoll : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             collider.enabled = true;
-            if (collider.attachedRigidbody != null) 
-                collider.attachedRigidbody.isKinematic = false;
+            /*if (collider.attachedRigidbody != null) 
+                collider.attachedRigidbody.isKinematic = false;*/
             collider.attachedRigidbody.ResetInertiaTensor();
         }
+
+        foreach (Rigidbody rigidbody in rigidbodies)
+        {
+            rigidbody.useGravity = true;
+        }
+
         //colliders[0].attachedRigidbody.AddForce(transform.up * 1000.0f, ForceMode.Impulse);
 
         Vector3 pos = root.position;

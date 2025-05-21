@@ -9,12 +9,14 @@ public class UI : MonoBehaviour
     [SerializeField] UI_CoinAmount coinAmount;
     [SerializeField] A_UI sound;
     [SerializeField] UI_Crosshair crosshair;
+    [SerializeField] UI_PauseMenu pauseMenu;
 
     public static UI_Ammo Ammo => Instance.ammo;
     public static UI_HealthBar HealthBar => Instance.healthBar;
     public static UI_CoinAmount CoinAmount => Instance.coinAmount;
     public static A_UI Audio => Instance.sound;
     public static UI_Crosshair Crosshair => Instance.crosshair;
+    public static UI_PauseMenu PauseMenu => Instance.pauseMenu;
 
     private void Awake()
     {

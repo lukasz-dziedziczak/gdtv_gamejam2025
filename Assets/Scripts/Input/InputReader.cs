@@ -36,14 +36,6 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
         }
     }
 
-    public void OnCrouch(InputAction.CallbackContext context)
-    {
-    }
-
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-    }
-
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed) Jump?.Invoke();
@@ -57,16 +49,6 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
     public void OnMove(InputAction.CallbackContext context)
     {
         Movement = context.ReadValue<Vector2>();
-    }
-
-    public void OnNext(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnPrevious(InputAction.CallbackContext context)
-    {
-
     }
 
     public void OnSprint(InputAction.CallbackContext context)

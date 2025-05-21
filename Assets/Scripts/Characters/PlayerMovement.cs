@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!player.IsAlive) return; 
+
         // Rotate to match camera's horizontal forward
         Vector3 lookDirection = cam.transform.forward;
         lookDirection.y = 0f;
@@ -48,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump()
     {
+        if (!player.IsAlive) return;
+
         player.Rigidbody.AddForce(transform.up * jump, ForceMode.Acceleration);
         player.Animator.SetTrigger("Jump");
     }
@@ -56,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         !player.Shooting.IsReloading && 
         !player.Input.IsAttacking && 
         player.Input.IsSprinting && 
-        player.Input.Movement.x == 0 && 
+        player.Input.Movement.x <= 0.25f &&
+        player.Input.Movement.x >= -0.25f &&
         player.Input.Movement.y > 0;
 }

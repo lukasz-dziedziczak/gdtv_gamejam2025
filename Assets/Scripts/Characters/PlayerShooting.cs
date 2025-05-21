@@ -58,6 +58,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void FireWeapon()
     {
+        if (!player.IsAlive) return;
         if (cooldownTimer > 0 || CurrentAmmo == 0) return;
 
         if (!autoFire)
@@ -71,6 +72,7 @@ public class PlayerShooting : MonoBehaviour
 
     public void Fire()
     {
+        if (!player.IsAlive) return;
         if (IsReloading) return;
         if (CurrentAmmo <= 0)
         {
@@ -140,7 +142,7 @@ public class PlayerShooting : MonoBehaviour
 
     public void BeginReload()
     {
-        //print("BeginReload()");
+        if (!player.IsAlive) return;
         if (IsReloading || StorageAmmo <= 0) return;
         IsReloading = true;
         player.Animator.SetTrigger("Reload");
@@ -156,6 +158,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void OnAttackStart()
     {
+        if (!player.IsAlive) return;
         if (IsReloading) return;
         if (cooldownTimer > 0) return;
         if (CurrentAmmo <= 0)

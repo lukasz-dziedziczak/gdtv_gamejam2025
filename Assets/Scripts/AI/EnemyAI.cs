@@ -29,6 +29,11 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         if (enemy == null || !enemy.IsAlive) return;
+        if (Target != null && !Target.IsAlive)
+        {
+            Target = null;
+            enemy.NavMeshAgent.SetDestination(transform.position);
+        }
         if (Target != null) TargetUpdate();
         else if (waypoints.Length > 0) WaypointUpdate();
         else WonderingUpdate();
@@ -81,7 +86,8 @@ public class EnemyAI : MonoBehaviour
 
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-            // attack player
+
+            enemy.Combat.BeginAttack();
         }
 
         else if (enemy.NavMeshAgent.destination != Target.transform.position) 
@@ -112,6 +118,7 @@ public class EnemyAI : MonoBehaviour
         if (Target == player) return;
 
         Target = player;
+        if (Target != null) Target.Voice.PlayCombatStartClip();
         enemy.ResetSpeed();
     }
 
