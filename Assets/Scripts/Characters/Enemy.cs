@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     public bool IsAlive => Health.Amount > 0;
 
     public static event Action Death;
-    [field: SerializeField] public bool IsStunned;
+    [field: SerializeField] public bool IsStunned { get; private set; }
 
     private void OnEnable()
     {

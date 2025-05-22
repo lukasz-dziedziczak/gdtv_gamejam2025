@@ -4991,7 +4991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a15f1bba6371cb4fa5bb04c3e5020e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoAmount: 50
+  ammoAmount: 80
   mesh: {fileID: 2839334974973951524}
   rotationSpeed: 140
 --- !u!1 &6965294428174582119

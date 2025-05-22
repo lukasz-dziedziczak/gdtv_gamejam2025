@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UI_PauseMenu : MonoBehaviour
+public class UI_WinScreen : MonoBehaviour
 {
-    public void OnResumePress()
+    private void OnEnable()
     {
-        UI.TogglePaused();
+        Time.timeScale = 0.0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void OnResetPress()
@@ -14,14 +16,10 @@ public class UI_PauseMenu : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void OnSettingsPress()
-    {
-
-    }
-
     public void OnExitPress()
     {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
     }
+
 }

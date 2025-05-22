@@ -10,13 +10,14 @@ public class UI : MonoBehaviour
     [SerializeField] A_UI sound;
     [SerializeField] UI_Crosshair crosshair;
     [SerializeField] UI_PauseMenu pauseMenu;
-
+    [SerializeField] UI_WinScreen winScreen;
     public static UI_Ammo Ammo => Instance.ammo;
     public static UI_HealthBar HealthBar => Instance.healthBar;
     public static UI_CoinAmount CoinAmount => Instance.coinAmount;
     public static A_UI Audio => Instance.sound;
     public static UI_Crosshair Crosshair => Instance.crosshair;
     public static UI_PauseMenu PauseMenu => Instance.pauseMenu;
+    public static UI_WinScreen WinScreen => Instance.winScreen;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class UI : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         pauseMenu.gameObject.SetActive(false);
+        winScreen.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

@@ -5,10 +5,14 @@ public class Area : MonoBehaviour
     [SerializeField] EnemySpawner[] enemySpawners;
     [SerializeField] bool spawnOnStart = true;
     [SerializeField] Area[] respawnAreas;
+    [SerializeField] AmmoSpawner[] ammoSpawners;
     [field: SerializeField] public bool HasPlayer { get; private set; }
 
     private void Start()
     {
+        enemySpawners = GetComponentsInChildren<EnemySpawner>();
+        ammoSpawners = GetComponentsInChildren<AmmoSpawner>();
+
         if (spawnOnStart) SpawnAll();
     }
 
@@ -18,6 +22,11 @@ public class Area : MonoBehaviour
         foreach (EnemySpawner spawner in enemySpawners)
         {
             spawner.SpawnEnemy();
+        }
+
+        foreach (AmmoSpawner ammoSpawner in ammoSpawners)
+        {
+            ammoSpawner.SpawnAmmoPickup();
         }
     }
 

@@ -1,6 +1,6 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -11,10 +11,12 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float waypointProximity = 0.1f;
     [SerializeField] float targetProximity = 1.2f;
     [SerializeField] float wonderingProximity = 5.0f;
+    [SerializeField] LayerMask lineOfSight;
 
     Vector3 spawnPosition;
     Vector3 wonderingTarget;
     Player unseenPlayer;
+    bool backwards;
 
     private void Awake()
     {
@@ -23,6 +25,25 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
+        backwards = Random.Range(0, 2) == 1 ? true : false;
+
+        List<Waypoint> newWaypoints = waypoints.ToList();
+        foreach (Waypoint point in waypoints)
+        {
+            if (point == null)
+            {
+                Debug.LogWarning(enemy.name + " has invalid waypoint: " + point.ToString());
+                newWaypoints.Remove(point);
+            }
+        }
+        waypoints = newWaypoints.ToArray();
+
+        if (waypoints.Length > 0 && enemy != null)
+        {
+            waypointIndex = closestWaypoint;
+            enemy.NavMeshAgent.SetDestination(currentWaypoint.Position);
+        }
+
         spawnPosition = enemy.transform.position;
         wonderingTarget = spawnPosition;
     }
@@ -58,7 +79,6 @@ public class EnemyAI : MonoBehaviour
             {
                 destinationSet = enemy.NavMeshAgent.SetDestination(GenerateNewWonderingTarget());
             }
-             
         }
     }
 
@@ -73,14 +93,14 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        float distance = Vector3.Distance(enemy.transform.position, currentWaypoint.Position);
+        /*float distance = Vector3.Distance(enemy.transform.position, currentWaypoint.Position);
         if (distance < waypointProximity)
         {
             waypointIndex++;
             if (waypointIndex >= waypoints.Length) waypointIndex = 0;
             enemy.NavMeshAgent.SetDestination(currentWaypoint.Position);
             return;
-        }
+        }*/
     }
 
     private void TargetUpdate()
@@ -132,7 +152,14 @@ public class EnemyAI : MonoBehaviour
         if (Target == player) return;
 
         Target = player;
-        if (Target != null) Target.Voice.PlayCombatStartClip();
+        if (Target != null)
+        {
+            Target.Voice.PlayCombatStartClip();
+        }
+        else
+        {
+            waypointIndex = closestWaypoint;
+        }
         enemy.ResetSpeed();
     }
 
@@ -149,7 +176,7 @@ public class EnemyAI : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, (gameObject.transform.position - transform.position).normalized);
-        return Physics.Raycast(ray, out hit, 100.0f) && hit.collider.gameObject == gameObject;
+        return Physics.Raycast(ray, out hit, 100.0f, lineOfSight) && hit.collider.gameObject == gameObject;
     }
 
     public void SetWaypoints(Waypoint[] newWaypoints)
@@ -162,7 +189,7 @@ public class EnemyAI : MonoBehaviour
     {
         get
         {
-            if (waypoints.Length > 0)
+            if (enemy != null && waypoints.Length > 0)
             {
                 int closestIndex = -1;
                 float closestDistance = Mathf.Infinity;
@@ -179,6 +206,20 @@ public class EnemyAI : MonoBehaviour
                 return closestIndex;
             }
             else return -1;
+        }
+    }
+
+    public void ArrivedAt(Waypoint waypoint)
+    {
+        if (currentWaypoint == waypoint)
+        {
+            if (backwards) waypointIndex--;
+            else waypointIndex++;
+
+            if (waypointIndex >= waypoints.Length) waypointIndex = 0;
+            else if (waypointIndex < 0) waypointIndex = waypoints.Length - 1;
+
+            enemy.NavMeshAgent.SetDestination(currentWaypoint.Position);
         }
     }
 }

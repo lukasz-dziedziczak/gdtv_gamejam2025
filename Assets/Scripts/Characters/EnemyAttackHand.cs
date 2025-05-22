@@ -5,6 +5,7 @@ public class EnemyAttackHand : MonoBehaviour
     Enemy enemy;
 
     [field: SerializeField] public bool IsActive {  get; private set; }
+    [SerializeField] GameObject impact;
     
     bool hasHit;
 
@@ -29,6 +30,12 @@ public class EnemyAttackHand : MonoBehaviour
         {
             player.Health.ApplyDamage(enemy.Combat.AttackDamage);
             hasHit = true;
+
+            if (impact != null)
+            {
+                Instantiate(impact, transform.position, 
+                    Quaternion.FromToRotation(player.transform.position, enemy.transform.position));
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float runningSpeed;
     [SerializeField] Camera cam;
     [SerializeField] float jump;
+    [field: SerializeField] public bool IsJumping { get; private set; }
 
     private void Awake()
     {
@@ -50,13 +51,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump()
     {
-        if (!player.IsAlive || Time.timeScale == 0) return;
+        if (!player.IsAlive || 
+            Time.timeScale == 0 || 
+            player.Shooting.IsReloading || 
+            player.Movement.IsJumping) 
+                return;
 
         player.Rigidbody.AddForce(transform.up * jump, ForceMode.Acceleration);
         player.Animator.SetTrigger("Jump");
+        IsJumping = true;
     }
 
-    public bool IsSprinting => 
+    public void JumpComplete()
+    {
+        IsJumping = false;
+    }
+
+    public bool IsSprinting =>
+        !player.Movement.IsJumping &&
         !player.Shooting.IsReloading && 
         !player.Input.IsAttacking && 
         player.Input.IsSprinting && 

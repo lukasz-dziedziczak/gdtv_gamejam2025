@@ -55,7 +55,7 @@ public class A_Voice : A_BASE
     public void PlayCombatStartClip()
     {
         float random = Random.Range(0.0f, 1.0f);
-        if (random < (1.0f / 3.0f) && combatStartClips.Length > 0)
+        if (random < (1.0f / 5.0f) && combatStartClips.Length > 0)
         {
             PlayClip(combatStartClips[Random.Range(0, combatStartClips.Length)]);
         }
