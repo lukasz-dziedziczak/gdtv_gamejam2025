@@ -16,7 +16,12 @@ public class UI_PauseMenu : MonoBehaviour
 
     public void OnSettingsPress()
     {
+        UI.Settings.gameObject.SetActive(true);
+    }
 
+    public void OnControlsPress()
+    {
+        UI.Controls.gameObject.SetActive(true);
     }
 
     public void OnExitPress()
