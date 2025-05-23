@@ -10,6 +10,5 @@ public class A_Footstep : A_BASE
         if (footstepClips.Length == 0) return;
         audioSource.pitch = Random.Range(1.0f - pitchVariation, 1.0f + pitchVariation);
         PlayClip(footstepClips[Random.Range(0, footstepClips.Length)]);
-        print("footstep");
     }
 }

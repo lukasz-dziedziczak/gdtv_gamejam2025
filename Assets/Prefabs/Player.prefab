@@ -193,8 +193,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613060683084991507}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.014477505, y: 0.0028973776, z: -0.00004195061, w: -0.99989104}
-  m_LocalPosition: {x: 1.0100036, y: 2.25, z: -1.7262368}
+  m_LocalRotation: {x: 0.285549, y: -0.25101987, z: 0.0777736, w: 0.92163014}
+  m_LocalPosition: {x: 1.5316921, y: 2.9186883, z: -0.90365964}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -277,7 +277,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 3
   HorizontalAxis:
-    Value: -124.64
+    Value: -153.769
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 17.5
+    Value: 34.580856
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
         InputAction: {fileID: -5630151704836100654, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
         Gain: -1
         CancelDeltaTime: 0
-      InputValue: 0
+      InputValue: -0
       Driver:
         AccelTime: 0.2
         DecelTime: 0.2
@@ -397,7 +397,7 @@ MonoBehaviour:
         InputAction: {fileID: 5082991133974614888, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
         Gain: -1
         CancelDeltaTime: 0
-      InputValue: 0
+      InputValue: -0
       Driver:
         AccelTime: 0
         DecelTime: 0
@@ -512,7 +512,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -1548689637034129480, guid: 29bd644959cd9ff4dbba5e814474be60, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -611,9 +611,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2434784116768035838}
   footstepClips:
-  - {fileID: 8300000, guid: c552440b081774d49b22540760112fcc, type: 3}
-  - {fileID: 8300000, guid: 3ea865a2730d2eb478bcd7ca3f8a9363, type: 3}
-  pitchVariation: 0.05
+  - {fileID: 8300000, guid: e2e82744bdf67ea41b5b935f30f12915, type: 3}
+  pitchVariation: 0.1
 --- !u!1 &1151305920974171874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,7 +1745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad3fc9475fc13d4f8b2ab78b088dd88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  walkingSpeed: 0
   runningSpeed: 6
   cam: {fileID: 0}
   jump: 200
@@ -1835,6 +1834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 29bd644959cd9ff4dbba5e814474be60, type: 2}
+  controller: {fileID: 3767647900294937326}
 --- !u!1 &2846172234671916962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,6 +1885,8 @@ MonoBehaviour:
   introClips: []
   killClips:
   - {fileID: 8300000, guid: 60144f3fc58b142d98b7b4a43b5616ea, type: 3}
+  - {fileID: 8300000, guid: e7010c9ca82f04d649cde490f75f0dcc, type: 3}
+  - {fileID: 8300000, guid: 0b16a71478f0a4c0da5f2e6e6bb352e4, type: 3}
   tookDamageClips:
   - {fileID: 8300000, guid: e5ade3c3abdc24795b38dfdab58984ad, type: 3}
   - {fileID: 8300000, guid: 11be70e6f6bd04d1b874dbde51136496, type: 3}
@@ -1894,6 +1896,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 435546e8fdf15402695346dcf1c8fb3f, type: 3}
   - {fileID: 8300000, guid: 435546e8fdf15402695346dcf1c8fb3f, type: 3}
   - {fileID: 8300000, guid: 110332e66b22e422083ca1b48aa831c3, type: 3}
+  reloading: {fileID: 8300000, guid: 4bd64f0eb93294b1ab51eaa48b2a5acb, type: 3}
+  missionComplete: {fileID: 8300000, guid: 8418af361682b4462a65df38438c1203, type: 3}
 --- !u!82 &7035902163109521816
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1903,7 +1907,7 @@ AudioSource:
   m_GameObject: {fileID: 2846172234671916962}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1932610208413642137, guid: 29bd644959cd9ff4dbba5e814474be60, type: 2}
+  OutputAudioMixerGroup: {fileID: 5003307151389734268, guid: 29bd644959cd9ff4dbba5e814474be60, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1

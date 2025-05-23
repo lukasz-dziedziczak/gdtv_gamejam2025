@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] float jump;
     [field: SerializeField] public bool IsJumping { get; private set; }
+    [field: SerializeField] public bool HasMoved { get; private set; }
 
     private float speed
     {
@@ -53,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
             position += transform.forward * player.Input.Movement.y * Time.deltaTime * speed;
             position += transform.right * player.Input.Movement.x * Time.deltaTime * speed;
             transform.position = position;
+
+            HasMoved = true;
         }
 
         player.Animator.SetFloat("Forward", (IsSprinting ? player.Input.Movement.y * 2 : player.Input.Movement.y), 0.1f, Time.deltaTime);
@@ -70,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         player.Rigidbody.AddForce(transform.up * jump, ForceMode.Acceleration);
         player.Animator.SetTrigger("Jump");
         IsJumping = true;
+        player.Footstep.PlayFootstepSound();
     }
 
     public void JumpComplete()

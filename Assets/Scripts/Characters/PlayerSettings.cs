@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Audio;
 using static UnityEngine.Rendering.DebugUI;
@@ -6,12 +7,14 @@ using static UnityEngine.Rendering.DebugUI;
 public class PlayerSettings : MonoBehaviour
 {
     [SerializeField] AudioMixer audioMixer;
+    [SerializeField] CinemachineInputAxisController controller;
 
+    private float defaultInputSensitivity = 1f;
     private float defaultMasterAudioValue = 0;
     private float defaultMusicAudioValue = -20.0f;
     private float defaultSFXAudioValue = 0;
     private float defaultUIAudioValue = -20.0f;
-    private float defaultVoiceAudioValue = -10.0f;
+    private float defaultVoiceAudioValue = 0;
 
     private void Start()
     {
@@ -20,13 +23,18 @@ public class PlayerSettings : MonoBehaviour
 
     private void LoadSettings()
     {
-        if (audioMixer == null) return;
+        if (controller != null && PlayerPrefs.HasKey("InputSensitivity"))
+        {
+            foreach (var controller in controller.Controllers)
+            {
+                if (controller.Input.Gain >= 0)
+                    controller.Input.Gain = PlayerPrefs.GetFloat("InputSensitivity");
 
-        /*audioMixer.GetFloat("Master", out defaultMasterAudioValue);
-        audioMixer.GetFloat("Music", out defaultMusicAudioValue);
-        audioMixer.GetFloat("SFX", out defaultSFXAudioValue);
-        audioMixer.GetFloat("UI", out defaultUIAudioValue);
-        audioMixer.GetFloat("Voice", out defaultVoiceAudioValue);*/
+                else controller.Input.Gain = -PlayerPrefs.GetFloat("InputSensitivity");
+            }
+        }
+        
+        if (audioMixer == null) return;
 
         if (PlayerPrefs.HasKey("MasterAudio"))
             audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("MasterAudio"));
@@ -46,14 +54,27 @@ public class PlayerSettings : MonoBehaviour
 
     public void ResetToDefault()
     {
-        if (audioMixer == null) return;
+        if (controller != null)
+        {
+            foreach (var controller in controller.Controllers)
+            {
+                if (controller.Input.Gain > 0)
+                    controller.Input.Gain = defaultInputSensitivity;
 
-        audioMixer.SetFloat("Master", defaultMasterAudioValue);
-        audioMixer.SetFloat("Music", defaultMusicAudioValue);
-        audioMixer.SetFloat("SFX", defaultSFXAudioValue);
-        audioMixer.SetFloat("UI", defaultUIAudioValue);
-        audioMixer.SetFloat("Voice", defaultVoiceAudioValue);
+                else controller.Input.Gain = -defaultInputSensitivity;
+            }
+        }
 
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat("Master", defaultMasterAudioValue);
+            audioMixer.SetFloat("Music", defaultMusicAudioValue);
+            audioMixer.SetFloat("SFX", defaultSFXAudioValue);
+            audioMixer.SetFloat("UI", defaultUIAudioValue);
+            audioMixer.SetFloat("Voice", defaultVoiceAudioValue);
+        }
+
+        PlayerPrefs.DeleteKey("InputSensitivity");
         PlayerPrefs.DeleteKey("MasterAudio");
         PlayerPrefs.DeleteKey("MusicAudio");
         PlayerPrefs.DeleteKey("SFXAudio");
@@ -66,12 +87,35 @@ public class PlayerSettings : MonoBehaviour
     {
         get
         {
-            return 1.0f;
+            if (controller != null)
+            {
+                foreach (var controller in controller.Controllers)
+                {
+                    if (controller.Input.Gain > 0)
+                        return controller.Input.Gain;
+                }
+            }
+            
+            if (PlayerPrefs.HasKey("InputSensitivity"))
+                return PlayerPrefs.GetFloat("InputSensitivity");
+
+            else return defaultInputSensitivity;
         }
 
         set
         {
+            if (controller != null)
+            {
+                foreach (var controller in controller.Controllers)
+                {
+                    if (controller.Input.Gain > 0)
+                        controller.Input.Gain = value;
+
+                    else controller.Input.Gain = -value;
+                }
+            }
             PlayerPrefs.SetFloat("InputSensitivity", value);
+            PlayerPrefs.Save();
         }
     }
 

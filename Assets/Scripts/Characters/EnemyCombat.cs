@@ -28,6 +28,7 @@ public class EnemyCombat : MonoBehaviour
         IsAttacking = true;
         timer = attackRate + Random.Range(-attackRateVariation, attackRateVariation);
         enemy.Animator.SetTrigger("Attack");
+        enemy.Voice.PlayAttackClip();
     }
 
     public void AnimAttackStart()

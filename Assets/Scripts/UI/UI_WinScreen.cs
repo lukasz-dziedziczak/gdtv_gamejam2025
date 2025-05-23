@@ -8,6 +8,7 @@ public class UI_WinScreen : MonoBehaviour
         Time.timeScale = 0.0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        Player.Instance.Voice.PlayMissionCompelte();
     }
 
     public void OnResetPress()

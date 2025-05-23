@@ -147,6 +147,7 @@ public class PlayerShooting : MonoBehaviour
         IsReloading = true;
         player.Animator.SetTrigger("Reload");
         UI.Crosshair.HideCrosshair();
+        player.Voice.PlayReloadingClip();
     }
 
     public void AddToAmmoStorage(int amount)

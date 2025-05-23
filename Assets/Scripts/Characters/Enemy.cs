@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
     [field: SerializeField] public EnemyCombat Combat { get; private set; }
+    [field: SerializeField] public A_EnemyVoice Voice { get; private set; }
+    [field: SerializeField] public A_Footstep Footstep { get; private set; }
 
     [SerializeField] bool useRagdoll;
 
@@ -88,6 +90,7 @@ public class Enemy : MonoBehaviour
         }
         else Animator.SetTrigger("Death");
 
+        Voice.PlayDeathClip();
         Death?.Invoke();
     }
 
@@ -97,11 +100,17 @@ public class Enemy : MonoBehaviour
         NavMeshAgent.isStopped = true;
         Animator.SetTrigger("Damaged");
         IsStunned = true;
+        Voice.PlayGetHitClip();
     }
 
     public void DamageFinish()
     {
         if (NavMeshAgent.isActiveAndEnabled) NavMeshAgent.isStopped = false;
         IsStunned = false;
+    }
+
+    public void OnFootstep()
+    {
+        Footstep.PlayFootstepSound();
     }
 }

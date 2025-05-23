@@ -13,6 +13,7 @@ public class UI : MonoBehaviour
     [SerializeField] UI_WinScreen winScreen;
     [SerializeField] UI_Controls controls;
     [SerializeField] UI_Settings settings;
+    [SerializeField] GameObject deathNote;
 
     public static UI_Ammo Ammo => Instance.ammo;
     public static UI_HealthBar HealthBar => Instance.healthBar;
@@ -23,6 +24,7 @@ public class UI : MonoBehaviour
     public static UI_WinScreen WinScreen => Instance.winScreen;
     public static UI_Controls Controls => Instance.controls;
     public static UI_Settings Settings => Instance.settings;
+    public static GameObject DeathNote => Instance.deathNote;
 
     private void Awake()
     {
@@ -39,6 +41,7 @@ public class UI : MonoBehaviour
         winScreen.gameObject.SetActive(false);
         settings.gameObject.SetActive(false);
         controls.gameObject.SetActive(false);
+        deathNote.SetActive(false);
     }
 
     // Update is called once per frame

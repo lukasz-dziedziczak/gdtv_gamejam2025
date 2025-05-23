@@ -7,6 +7,8 @@ public class A_Voice : A_BASE
     [SerializeField] AudioClip[] killClips;
     [SerializeField] AudioClip[] tookDamageClips;
     [SerializeField] AudioClip[] combatStartClips;
+    [SerializeField] AudioClip reloading;
+    [SerializeField] AudioClip missionComplete;
 
     private void OnEnable()
     {
@@ -37,7 +39,7 @@ public class A_Voice : A_BASE
     {
         float random = Random.Range(0.0f, 1.0f);
 
-        if (random < (1.0f/3.0f) && killClips.Length > 0)
+        if (random < (1.0f/4.0f) && killClips.Length > 0 && !audioSource.isPlaying)
         {
             PlayClip(killClips[Random.Range(0, killClips.Length)]);
         }
@@ -46,7 +48,7 @@ public class A_Voice : A_BASE
     public void PlayTookDamageClip()
     {
         float random = Random.Range(0.0f, 1.0f);
-        if (random < (1.0f / 3.0f) && tookDamageClips.Length > 0)
+        if (random < (1.0f / 3.0f) && tookDamageClips.Length > 0 && !audioSource.isPlaying)
         {
             PlayClip(tookDamageClips[Random.Range(0, tookDamageClips.Length)]);
         }
@@ -55,7 +57,7 @@ public class A_Voice : A_BASE
     public void PlayCombatStartClip()
     {
         float random = Random.Range(0.0f, 1.0f);
-        if (random < (1.0f / 5.0f) && combatStartClips.Length > 0)
+        if (random < (1.0f / 6.0f) && combatStartClips.Length > 0 && !audioSource.isPlaying)
         {
             PlayClip(combatStartClips[Random.Range(0, combatStartClips.Length)]);
         }
@@ -63,6 +65,25 @@ public class A_Voice : A_BASE
 
     private void TookDamage(GameObject damageGiver)
     {
-        PlayTookDamageClip();
+        if (!audioSource.isPlaying)
+        {
+            PlayTookDamageClip();
+        }
+        
+    }
+
+    public void PlayReloadingClip()
+    {
+        float random = Random.Range(0.0f, 1.0f);
+        if (random < (1.0f / 2.0f) && !audioSource.isPlaying)
+        {
+            PlayClip(reloading);
+        }
+        
+    }
+
+    public void PlayMissionCompelte()
+    {
+        PlayClip(missionComplete);
     }
 }

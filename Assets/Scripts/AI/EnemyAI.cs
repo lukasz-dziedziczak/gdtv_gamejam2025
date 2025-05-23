@@ -174,6 +174,8 @@ public class EnemyAI : MonoBehaviour
 
     public bool HasLineOfSight(GameObject gameObject)
     {
+        if (gameObject.TryGetComponent<Player>(out Player player) && !player.Movement.HasMoved) return false;
+
         RaycastHit hit;
         Ray ray = new Ray(transform.position, (gameObject.transform.position - transform.position).normalized);
         return Physics.Raycast(ray, out hit, 100.0f, lineOfSight) && hit.collider.gameObject == gameObject;

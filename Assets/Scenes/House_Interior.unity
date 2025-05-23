@@ -61306,6 +61306,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2061243305}
+    - target: {fileID: 4970834415878468969, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
+      propertyPath: time
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5437486325680510275, guid: 0f85efc1e3364b741b79ad781deb82ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.75
@@ -68893,8 +68897,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061243301}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00981433, y: -0.7350778, z: 0.010643251, w: 0.6778282}
-  m_LocalPosition: {x: 25.39548, y: 3.4891443, z: 20.556837}
+  m_LocalRotation: {x: -0.13715835, y: 0.8464278, z: -0.26224905, w: -0.44268847}
+  m_LocalPosition: {x: 24.536034, y: 4.1578326, z: 21.015253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

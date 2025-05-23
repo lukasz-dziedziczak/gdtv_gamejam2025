@@ -67,8 +67,9 @@ public class Player : MonoBehaviour
 
     private void OnDeath()
     {
-        Animator.SetTrigger("Die");
         UI.ShowHUD(false);
+        UI.DeathNote.SetActive(true);
+        Animator.SetTrigger("Die");
     }
 
     private void OnDamaged(GameObject damageGiver)

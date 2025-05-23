@@ -20,6 +20,7 @@ public class CoinHolder : MonoBehaviour
 
         if (Amount >= CoinsInLevel)
         {
+            UI.ShowHUD(false);
             UI.WinScreen.gameObject.SetActive(true);
         }
     }
