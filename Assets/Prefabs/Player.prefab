@@ -1587,6 +1587,7 @@ GameObject:
   - component: {fileID: 1843953316406832116}
   - component: {fileID: 7594237322097300333}
   - component: {fileID: 4970834415878468969}
+  - component: {fileID: 1441702497780490072}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1644,6 +1645,7 @@ MonoBehaviour:
   <RifleMuzzle>k__BackingField: {fileID: 1125761467576967267}
   <Voice>k__BackingField: {fileID: 8708891238354787571}
   <Impact>k__BackingField: {fileID: 7358518436548596095}
+  <Settings>k__BackingField: {fileID: 1441702497780490072}
 --- !u!95 &7372280290036688689
 Animator:
   serializedVersion: 7
@@ -1820,6 +1822,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 4176981681342711209}
   time: 3
+--- !u!114 &1441702497780490072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768074626597063646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a6b184d75504c4986005f30dd2de2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 29bd644959cd9ff4dbba5e814474be60, type: 2}
 --- !u!1 &2846172234671916962
 GameObject:
   m_ObjectHideFlags: 0

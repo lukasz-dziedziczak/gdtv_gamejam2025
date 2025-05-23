@@ -4,11 +4,21 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     Player player;
-    [SerializeField] float speed;
+    [SerializeField] float walkingSpeed;
     [SerializeField] float runningSpeed;
     [SerializeField] Camera cam;
     [SerializeField] float jump;
     [field: SerializeField] public bool IsJumping { get; private set; }
+
+    private float speed
+    {
+        get
+        {
+            if (player.Shooting.IsReloading) return walkingSpeed / 3;
+            else if (IsSprinting) return runningSpeed;
+            else return walkingSpeed;
+        }
+    }
 
     private void Awake()
     {
@@ -37,11 +47,11 @@ public class PlayerMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
 
-        if (player.Input.Movement.magnitude > 0 && !player.Shooting.IsReloading)
+        if (player.Input.Movement.magnitude > 0)
         {
             Vector3 position = transform.position;
-            position += transform.forward * player.Input.Movement.y * Time.deltaTime * (IsSprinting ? runningSpeed : speed);
-            position += transform.right * player.Input.Movement.x * Time.deltaTime * (IsSprinting ? runningSpeed : speed);
+            position += transform.forward * player.Input.Movement.y * Time.deltaTime * speed;
+            position += transform.right * player.Input.Movement.x * Time.deltaTime * speed;
             transform.position = position;
         }
 
@@ -69,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsSprinting =>
         !player.Movement.IsJumping &&
-        !player.Shooting.IsReloading && 
+        !player.Shooting.IsReloading &&
         !player.Input.IsAttacking && 
         player.Input.IsSprinting && 
         player.Input.Movement.x <= 0.25f &&

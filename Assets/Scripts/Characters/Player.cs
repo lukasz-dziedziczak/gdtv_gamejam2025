@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public A_RifleMuzzle RifleMuzzle { get; private set; }
     [field: SerializeField] public A_Voice Voice { get; private set; }
     [field: SerializeField] public A_PlayerImpact Impact { get; private set; }
+    [field: SerializeField] public PlayerSettings Settings { get; private set; }
 
     private void Awake()
     {
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         Animator.SetTrigger("Die");
+        UI.ShowHUD(false);
     }
 
     private void OnDamaged(GameObject damageGiver)
